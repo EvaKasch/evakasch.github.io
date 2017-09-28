@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://evakasch.github.io/2016/05/04/hexo-setup/</loc>
+    
+    <lastmod>2017-09-28T11:51:21.416Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://evakasch.github.io/tags/index.html</loc>
     
     <lastmod>2017-09-28T10:46:14.597Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://evakasch.github.io/2016/07/01/startup/</loc>
     
     <lastmod>2016-07-01T07:48:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://evakasch.github.io/2016/05/04/hexo-setup/</loc>
-    
-    <lastmod>2016-05-04T14:18:30.000Z</lastmod>
     
   </url>
   
