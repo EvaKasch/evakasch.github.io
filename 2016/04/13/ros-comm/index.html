@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ROS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本文旨在解决两台计算机都装有ROS系统的情况下，它们ROS内部的消息传输。本文默认您已基本掌握ROS的基本操作和原理，想了解ROS基本原理和操作，请戳ROS教程。下述的双计算机配置皆为 Ubuntu 14.04 64bit + ROS indigo。 实现思想假如仅有一台计算机，配置有linux + ROS,想要实现不同节点(node)发布的话题(topic)之间的传输，仅需要确保本机打开了ros">
+<meta name="keywords" content="ROS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS下的双机通信">
+<meta property="og:url" content="http://evakasch.github.io/2016/04/13/ros-comm/index.html">
+<meta property="og:site_name" content="Evakasch&#39;s Moment">
+<meta property="og:description" content="本文旨在解决两台计算机都装有ROS系统的情况下，它们ROS内部的消息传输。本文默认您已基本掌握ROS的基本操作和原理，想了解ROS基本原理和操作，请戳ROS教程。下述的双计算机配置皆为 Ubuntu 14.04 64bit + ROS indigo。 实现思想假如仅有一台计算机，配置有linux + ROS,想要实现不同节点(node)发布的话题(topic)之间的传输，仅需要确保本机打开了ros">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://evakasch.github.io/img/ros_comm/ifconfig.png">
+<meta property="og:image" content="http://evakasch.github.io/img/ros_comm/hosts.png">
+<meta property="og:updated_time" content="2016-04-14T04:29:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ROS下的双机通信">
+<meta name="twitter:description" content="本文旨在解决两台计算机都装有ROS系统的情况下，它们ROS内部的消息传输。本文默认您已基本掌握ROS的基本操作和原理，想了解ROS基本原理和操作，请戳ROS教程。下述的双计算机配置皆为 Ubuntu 14.04 64bit + ROS indigo。 实现思想假如仅有一台计算机，配置有linux + ROS,想要实现不同节点(node)发布的话题(topic)之间的传输，仅需要确保本机打开了ros">
+<meta name="twitter:image" content="http://evakasch.github.io/img/ros_comm/ifconfig.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://evakasch.github.io/2016/04/13/ros-comm/"/>
+
+
+
+
+
+  <title>ROS下的双机通信 | Evakasch's Moment</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Evakasch's Moment</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://evakasch.github.io/2016/04/13/ros-comm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="evakasch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Evakasch's Moment">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ROS下的双机通信</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-13T19:29:22+08:00">
+                2016-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/04/13/ros-comm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/04/13/ros-comm/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/04/13/ros-comm/" class="leancloud_visitors" data-flag-title="ROS下的双机通信">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文旨在解决两台计算机都装有ROS系统的情况下，它们ROS内部的消息传输。本文默认您已基本掌握ROS的基本操作和原理，想了解ROS基本原理和操作，请戳<a href="http://wiki.ros.org/cn/ROS/Tutorials" target="_blank" rel="external">ROS教程</a>。下述的双计算机配置皆为 Ubuntu 14.04 64bit + ROS indigo。</p>
+<h1 id="实现思想"><a href="#实现思想" class="headerlink" title="实现思想"></a>实现思想</h1><p>假如仅有<strong>一台</strong>计算机，配置有linux + ROS,想要实现不同<strong>节点(node)</strong>发布的<strong>话题(topic)</strong>之间的传输，仅需要确保本机打开了roscore，并且参数ROS_MASTER_URI的设置正确。（我们一般不用考虑ROS_MASTER_URI的设置，在运行roscore的时候，它已经自动设置正确了，默认时，ROS_MASTER_URI＝<a href="http://localhost:11311/）" target="_blank" rel="external">http://localhost:11311/）</a></p>
+<p>roscore会<strong>订阅(subscribe)</strong>所有该机器下的<strong>话题(topic)</strong>，不妨这样认为，如果有<strong>节点(node)</strong>需要订阅<strong>话题(topic)</strong>，只需要在roscore处查阅消息即可。因此，roscore实现了服务器的功能。</p>
+<p>如果有两台计算机，一台计算机中的<strong>节点(node)</strong>需要获得另一台计算机的<strong>话题(topic)</strong>（或者双方都有需求），只需要选一台计算机打开roscore，另一台计算机不打开roscore，而是确保与计算机A的网络通信通畅情况下，把ROS_MASTER_URI设置为roscore的地址，此时两台计算机所有话题都可共享了。</p>
+<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><p>本文需要通信的两台计算机名字分别叫作lty-Lenovo-Y430P和cyberc3.两台计算机连接到相同的无线局域网(wlan)。（本文测试过，有线局域网也可以。）</p>
+<p>我们打算让cyberc3打开roscore,lty-Lenovo-Y430P不打开。两台计算机都连接cyberc3的roscore.</p>
+<h2 id="获取计算机的ip"><a href="#获取计算机的ip" class="headerlink" title="获取计算机的ip"></a>获取计算机的ip</h2><p>请打开终端（ctrl+alt+t）,将看到如下形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">userName:computer_name:~$</div></pre></td></tr></table></figure>
+<p>查阅计算机的内网ip地址，在终端下输入命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ifconfig</div></pre></td></tr></table></figure>
+<p>在详细信息中查阅。</p>
+<p>本文在lty-Lenovo-Y430P中输入该命令，得到结果如下图。</p>
+<p><img src="/img/ros_comm/ifconfig.png" alt="ifconfig结果"></p>
+<p>因为两台电脑都在同一局域网内。所以用内网的ip地址即可通信。对cyberc3执行相同操作，记录ip地址</p>
+<p>分别为：</p>
+<p>lty-Lenovo-Y430P的ip地址是192.168.0.116</p>
+<p>cyberc3的ip地址是192.168.0.10</p>
+<h2 id="修改host"><a href="#修改host" class="headerlink" title="修改host"></a>修改host</h2><p>在终端下输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/hosts</div></pre></td></tr></table></figure>
+<p>输入密码后，将在记事本中打开hosts文件，在文末填加对方计算机的地址和名字，保存并关闭。</p>
+<p>例如，lty-Lenovo-Y430P的hosts文件将会变为如下图所示</p>
+<p><img src="/img/ros_comm/hosts.png" alt="host文件"></p>
+<p><strong>类似的，也要在cyberc3的hosts中加入lty-Lenovo-Y430P的ip和名字</strong></p>
+<h2 id="修改系统环境变量"><a href="#修改系统环境变量" class="headerlink" title="修改系统环境变量"></a>修改系统环境变量</h2><p><strong>此步骤仅需要在lty-Lenovo-Y430P中操作</strong></p>
+<p>在终端中输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export ROS_MASTER_URI=http://cyberc3:11311  #要和cyberc3的roscore终端中的ROS_MASTER_URI的port一致，默认为11311。http不可省略</div><div class="line">export ROS_IP=192.168.0.116　               ＃本机的ip地址，为了方便其他计算机与本机通信</div><div class="line">export ROS_HOSTNAME=lty-Lenovo-Y430P        #本机名字，作用与ROS_IP类似</div></pre></td></tr></table></figure></p>
+<p>注意：等号两侧不可以有空格。<strong>上述命令只对当前终端有效！</strong></p>
+<p>如果有多个<strong>终端</strong>需要用到的cyberc3计算机的roscore，就应该对每个终端，都要输入上述环境语句，再输入rosrun等等命令。</p>
+<p>为提升效率，可以将上述三句命令保存为一个.sh文件，保存在lty-Lenovo-Y430P计算机中，如cyberc3_comm.sh.只需要每打开一个终端，输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source cyberc3_comm.sh</div></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">. cyberc3_comm.sh</div></pre></td></tr></table></figure></p>
+<p>即可达到相同效果。</p>
+<h2 id="在cyberc3中打开roscore"><a href="#在cyberc3中打开roscore" class="headerlink" title="在cyberc3中打开roscore"></a>在cyberc3中打开roscore</h2><p>最后，只需要在cyberc3的终端下输入roscore，即可通信！</p>
+<p><strong>请不要在lty-Lenovo-Y430P中打开roscore.</strong></p>
+<h1 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h1><p>仍然时而会无法正常通信，请尝试如下解决方案</p>
+<h3 id="确定连接在同一个网络，且网络通畅"><a href="#确定连接在同一个网络，且网络通畅" class="headerlink" title="确定连接在同一个网络，且网络通畅"></a>确定连接在同一个网络，且网络通畅</h3><p>尝试在终端下输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ping 对方ip</div></pre></td></tr></table></figure>
+<p>观察双方网络是否连通</p>
+<h3 id="检查设置是否完成正确"><a href="#检查设置是否完成正确" class="headerlink" title="检查设置是否完成正确"></a>检查设置是否完成正确</h3><p>包括是否缺少步骤，是否存在输入错误，等等。</p>
+<h3 id="仅在cyberc3中打开roscore"><a href="#仅在cyberc3中打开roscore" class="headerlink" title="仅在cyberc3中打开roscore"></a>仅在cyberc3中打开roscore</h3><p><strong>请不要在lty-Lenovo-Y430P中打开roscore.</strong></p>
+<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><p>如果反复检查都没有问题，不妨试试重启</p>
+<h1 id="Enjoy-it"><a href="#Enjoy-it" class="headerlink" title="Enjoy it!"></a>Enjoy it!</h1><p>请避免<strong>话题(topic)</strong>内容量过大，否则易导致网络瘫痪。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ROS/" rel="tag"># ROS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/05/gdb-ros/" rel="next" title="gdb调试roscpp node">
+                <i class="fa fa-chevron-left"></i> gdb调试roscpp node
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/04/hexo-setup/" rel="prev" title="用hexo和github搭建博客入门">
+                用hexo和github搭建博客入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="evakasch" />
+          <p class="site-author-name" itemprop="name">evakasch</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现思想"><span class="nav-number">1.</span> <span class="nav-text">实现思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体步骤"><span class="nav-number">2.</span> <span class="nav-text">具体步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取计算机的ip"><span class="nav-number">2.1.</span> <span class="nav-text">获取计算机的ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改host"><span class="nav-number">2.2.</span> <span class="nav-text">修改host</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改系统环境变量"><span class="nav-number">2.3.</span> <span class="nav-text">修改系统环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在cyberc3中打开roscore"><span class="nav-number">2.4.</span> <span class="nav-text">在cyberc3中打开roscore</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Troubleshooting"><span class="nav-number">3.</span> <span class="nav-text">Troubleshooting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#确定连接在同一个网络，且网络通畅"><span class="nav-number">3.0.1.</span> <span class="nav-text">确定连接在同一个网络，且网络通畅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查设置是否完成正确"><span class="nav-number">3.0.2.</span> <span class="nav-text">检查设置是否完成正确</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#仅在cyberc3中打开roscore"><span class="nav-number">3.0.3.</span> <span class="nav-text">仅在cyberc3中打开roscore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启"><span class="nav-number">3.0.4.</span> <span class="nav-text">重启</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Enjoy-it"><span class="nav-number">4.</span> <span class="nav-text">Enjoy it!</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">evakasch</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://evakasch.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://evakasch.github.io/2016/04/13/ros-comm/';
+          this.page.identifier = '2016/04/13/ros-comm/';
+          this.page.title = 'ROS下的双机通信';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://evakasch.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Xo179olHaOewunicyNSEjPtQ-gzGzoHsz", "UJH8hmlEnjlQGCtsw8gFbn3l");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

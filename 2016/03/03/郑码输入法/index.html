@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="效率," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="偶遇过一些打字大神，觉得好专业，好羡慕~~ 然而自己的输入速度却难以提升。难道真的是我的手脑协调性过低? Nooooooo! 拼音选字又慢又累作为一名重度拼音输入法用户，必然忍受拼音输入法高重码率的缺点。比如，输入偏难怪词，常常翻好几页才能找到。这样打字速度就会因选字而大大降低了。另外，如今拼音输入法大多提供智能排序功能，候选词的位置不固定，输入时就不能因对输入法熟悉而背诵词语列表(背诵词语列表是">
+<meta name="keywords" content="效率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="郑码输入法 你值得拥有">
+<meta property="og:url" content="http://evakasch.github.io/2016/03/03/郑码输入法/index.html">
+<meta property="og:site_name" content="Evakasch&#39;s Moment">
+<meta property="og:description" content="偶遇过一些打字大神，觉得好专业，好羡慕~~ 然而自己的输入速度却难以提升。难道真的是我的手脑协调性过低? Nooooooo! 拼音选字又慢又累作为一名重度拼音输入法用户，必然忍受拼音输入法高重码率的缺点。比如，输入偏难怪词，常常翻好几页才能找到。这样打字速度就会因选字而大大降低了。另外，如今拼音输入法大多提供智能排序功能，候选词的位置不固定，输入时就不能因对输入法熟悉而背诵词语列表(背诵词语列表是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-04-05T11:38:24.521Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="郑码输入法 你值得拥有">
+<meta name="twitter:description" content="偶遇过一些打字大神，觉得好专业，好羡慕~~ 然而自己的输入速度却难以提升。难道真的是我的手脑协调性过低? Nooooooo! 拼音选字又慢又累作为一名重度拼音输入法用户，必然忍受拼音输入法高重码率的缺点。比如，输入偏难怪词，常常翻好几页才能找到。这样打字速度就会因选字而大大降低了。另外，如今拼音输入法大多提供智能排序功能，候选词的位置不固定，输入时就不能因对输入法熟悉而背诵词语列表(背诵词语列表是">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://evakasch.github.io/2016/03/03/郑码输入法/"/>
+
+
+
+
+
+  <title>郑码输入法 你值得拥有 | Evakasch's Moment</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Evakasch's Moment</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://evakasch.github.io/2016/03/03/郑码输入法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="evakasch">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Evakasch's Moment">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">郑码输入法 你值得拥有</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-03T16:18:21+08:00">
+                2016-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/03/03/郑码输入法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/03/03/郑码输入法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/03/03/郑码输入法/" class="leancloud_visitors" data-flag-title="郑码输入法 你值得拥有">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>偶遇过一些打字大神，觉得好专业，好羡慕~~ 然而自己的输入速度却难以提升。难道真的是我的手脑协调性过低? Nooooooo!</p>
+<h2 id="拼音选字又慢又累"><a href="#拼音选字又慢又累" class="headerlink" title="拼音选字又慢又累"></a>拼音选字又慢又累</h2><p>作为一名重度<strong>拼音</strong>输入法用户，必然忍受拼音输入法<strong>高重码率</strong>的缺点。比如，输入偏难怪词，常常翻好几页才能找到。这样打字速度就会因<strong>选字</strong>而大大降低了。另外，如今拼音输入法大多提供<strong>智能排序</strong>功能，候选词的位置<strong>不固定</strong>，输入时就不能因对输入法熟悉而背诵词语列表(背诵词语列表是<strong>智能ABC</strong>大神的必备技)。这样就要盯着候选词框，选择正确的词语。选字真是又慢又累。什么? 你问：“难道还有更轻松的输入法?” 当然啊！</p>
+<h2 id="五笔不用选字"><a href="#五笔不用选字" class="headerlink" title="五笔不用选字"></a>五笔不用选字</h2><p>为了避免选字的耗时耗心，相当多打字大神选择了大名鼎鼎的五笔。五笔是<strong>形码</strong>的一种，形码从汉字的<strong>结构</strong>入手，将汉字分解成若干部件。</p>
+<p>形码的优势就是<strong>重码率低</strong>，当你输入一个字时，往往不需要选择候选项，仅按空格即可输入，这无疑减少了反应时间，加快输入速度，甚至可以解放双眼，实现真正的盲打。</p>
+<p>那我最后怎么选择了郑码，没选择五笔呢?</p>
+<h2 id="五笔拆字难，难学易忘"><a href="#五笔拆字难，难学易忘" class="headerlink" title="五笔拆字难，难学易忘"></a>五笔拆字难，难学易忘</h2><p>事实上，五笔除拼音外最热门的简体汉语输入法，作为盲目从众的我，当然率先试过啦～</p>
+<p>然而学习两三天后，不能忍的点渐渐出现——其一是<strong>不合理的拆字规则</strong>，这显得很不规范，同时不熟的字就很难打出来了。虽然都说98版五笔修正了86版五笔的很多不合理的拆字规则，却又听说“86版五笔更加广泛”，“应从86版五笔开始学习”等等建议，所以有些爱好者提议——最好两个版本的五笔都熟悉。OMG，在逗我?！</p>
+<p><strong>难学易忘</strong>是五笔又一缺点。五笔的码表是因舒适度排列的，没有逻辑理由，所以如果许久不用，可能需要重新学习。</p>
+<h2 id="郑码就很赞啊"><a href="#郑码就很赞啊" class="headerlink" title="郑码就很赞啊"></a>郑码就很赞啊</h2><p>微软的Windows 8之前的多版系统都自带“郑码”输入法，可见郑码曾经的影响力（虽然现在用户不多）。</p>
+<p>它也是一种形码输入法，与五笔不同的是<strong>拆字规范</strong>，<strong>重码率更低</strong>，码表有规律，<strong>不易忘记</strong>。</p>
+<p>正巧我不想选字，又不爱死记硬背，毫不犹豫选择了<strong>郑码</strong>。好在郑码的<strong>学习资料很多</strong>，也很正规，自学并不困难。</p>
+<p>如果你有<strong>兴趣</strong>打字提速，愿意记忆一定量的词根，都可以在<strong>一天</strong>至<strong>数月</strong>之内掌握郑码，并在日常应用中逐渐提速。郑码是一款学会了就会爱上的输入法，欢迎你的加入~~~</p>
+<p>本人的入门方式：安装郑码输入法 -&gt; 阅读《郑码实用手册》，并按照内容练习 -&gt; 用它来聊天 -&gt; 学术写作</p>
+<p>资料详见文尾的“资源下载”。</p>
+<h2 id="郑码适合自己吗"><a href="#郑码适合自己吗" class="headerlink" title="郑码适合自己吗"></a>郑码适合自己吗</h2><p>笔峰一转，客观公正的来说（毕竟没有拿好处费），没有一种输入法是完美的。你更在意的是什么呢?</p>
+<p>由于形码需要拆解字，如果不会写，或者不会拆，那么都很难打出。郑码极大的解决的拆字难题，但不会写咋整= =</p>
+<p>tip: 有的输入法可以同时输入郑码和拼音，这一定程度可以取长补短。</p>
+<p>对拼音掌握不好，又不会提笔忘字的人，最适合学习形码了。什么? 你提笔忘字? 如果你想不再提笔忘字了，欢迎加入郑码:-)</p>
+<p>经过了一定量的调研（严肃脸），我为大家奉上整理好的各输入法的特(gan)点(huo)：</p>
+<h3 id="拼音的优点"><a href="#拼音的优点" class="headerlink" title="拼音的优点"></a>拼音的优点</h3><p>1.易学难忘<br>2.软件智能<br>3.不需要会写，会念即可</p>
+<h3 id="拼音的缺点"><a href="#拼音的缺点" class="headerlink" title="拼音的缺点"></a>拼音的缺点</h3><p>1.选字耗时长，打字速度受限<br>2.容易泄漏隐私<br>3.不会念的字打不出</p>
+<h3 id="形码的优点"><a href="#形码的优点" class="headerlink" title="形码的优点"></a><strong>形码</strong>的<strong>优点</strong></h3><p>1.击键流畅，输入<strong>专心</strong>，提升手指和大脑的灵活性，提升打字速度<br>2.不会念的字也能打出<br>3.不易泄漏隐私<br>4.<strong>爱上打字</strong></p>
+<h3 id="形码的缺点"><a href="#形码的缺点" class="headerlink" title="形码的缺点"></a><strong>形码</strong>的<strong>缺点</strong></h3><p>1.记忆量大，上手慢<br>2.不会写的字很难打出来</p>
+<h3 id="五笔的优点"><a href="#五笔的优点" class="headerlink" title="五笔的优点"></a>五笔的优点</h3><p>1.字根的分布考虑<strong>按键舒适度</strong><br>2.字根较少，易记<br>3.重码率低<br>4.用户群大，可选输入法软件多，高手多。</p>
+<h3 id="五笔的缺点"><a href="#五笔的缺点" class="headerlink" title="五笔的缺点"></a>五笔的缺点</h3><p>1.长久不用易忘<br>2.<strong>拆字难</strong><br>3.<strong>字库小</strong></p>
+<h3 id="郑码的优点"><a href="#郑码的优点" class="headerlink" title="郑码的优点"></a>郑码的优点</h3><p>1.字根的分布有<strong>逻辑</strong>，易于记忆。<br>2.拆字易<br>3.字库大<br>4.windows 7系统及以前的版本的<strong>系统自带</strong>输入法</p>
+<h3 id="郑码的缺点"><a href="#郑码的缺点" class="headerlink" title="郑码的缺点"></a>郑码的缺点</h3><p>1.字根分布没有考虑指法，舒适性有待提高<br>2.用户少，软件人性化差<br>3.<strong>字根多</strong>，记忆量大。</p>
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p>百度云链接:<a href="https://pan.baidu.com/s/1b1yq4m" target="_blank" rel="external">郑码学习资料</a></p>
+<p>密码：ke9b</p>
+<p>内容包括，码表，书籍，各系统下的输入法软件。（如链接失效，可回复本文，我将私下email）</p>
+<p>##Enjoy</p>
+<p>期待你的加入:-)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/效率/" rel="tag"># 效率</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/05/gdb-ros/" rel="prev" title="gdb调试roscpp node">
+                gdb调试roscpp node <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="evakasch" />
+          <p class="site-author-name" itemprop="name">evakasch</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#拼音选字又慢又累"><span class="nav-number">1.</span> <span class="nav-text">拼音选字又慢又累</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五笔不用选字"><span class="nav-number">2.</span> <span class="nav-text">五笔不用选字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五笔拆字难，难学易忘"><span class="nav-number">3.</span> <span class="nav-text">五笔拆字难，难学易忘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#郑码就很赞啊"><span class="nav-number">4.</span> <span class="nav-text">郑码就很赞啊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#郑码适合自己吗"><span class="nav-number">5.</span> <span class="nav-text">郑码适合自己吗</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拼音的优点"><span class="nav-number">5.1.</span> <span class="nav-text">拼音的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拼音的缺点"><span class="nav-number">5.2.</span> <span class="nav-text">拼音的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#形码的优点"><span class="nav-number">5.3.</span> <span class="nav-text">形码的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#形码的缺点"><span class="nav-number">5.4.</span> <span class="nav-text">形码的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五笔的优点"><span class="nav-number">5.5.</span> <span class="nav-text">五笔的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五笔的缺点"><span class="nav-number">5.6.</span> <span class="nav-text">五笔的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#郑码的优点"><span class="nav-number">5.7.</span> <span class="nav-text">郑码的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#郑码的缺点"><span class="nav-number">5.8.</span> <span class="nav-text">郑码的缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源下载"><span class="nav-number">6.</span> <span class="nav-text">资源下载</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">evakasch</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://evakasch.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://evakasch.github.io/2016/03/03/郑码输入法/';
+          this.page.identifier = '2016/03/03/郑码输入法/';
+          this.page.title = '郑码输入法 你值得拥有';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://evakasch.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Xo179olHaOewunicyNSEjPtQ-gzGzoHsz", "UJH8hmlEnjlQGCtsw8gFbn3l");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
